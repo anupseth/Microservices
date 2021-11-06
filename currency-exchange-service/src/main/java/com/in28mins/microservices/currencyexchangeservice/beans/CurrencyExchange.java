@@ -1,6 +1,10 @@
-package com.in28mins.microservices.currencyexchangeservice;
+package com.in28mins.microservices.currencyexchangeservice.beans;
 
 import java.math.BigDecimal;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -11,13 +15,21 @@ import lombok.Setter;
 @AllArgsConstructor
 @Getter
 @Setter
-public class CurrentExchange {
+@Entity
+public class CurrencyExchange {
 	
+	@Id
 	private long id;
+	
+	@Column(name = "currency_from")
 	private String from;
+	
+	@Column(name = "currency_to")
 	private String to;
+	
 	private BigDecimal conversionMultiple;
 	
+	private String environment;
 	
 
 }
