@@ -20,21 +20,20 @@ public class CurrencyExchangeController {
 	private CurrencyExchangeRepo currencyExchangeRepo;
 
 	@GetMapping("/currency-exchange/from/{from}/to/{to}")
-	public ResponseDTO retreiveExchangeValue(@PathVariable String from, @PathVariable String to) {
+	public CurrencyExchange retreiveExchangeValue(@PathVariable String from, @PathVariable String to) {
 
 		CurrencyExchange currentExchange = currencyExchangeRepo.findByFromAndTo(from, to);
 
-		ResponseDTO responseDTO = new ResponseDTO();
-		if (currentExchange == null) {
-			responseDTO.setCurrencyExchange(null);
-			responseDTO.setError("No Conversion exist between these countries !!!");
-		} else {
-			responseDTO.setError(null);
-			currentExchange.setEnvironment(environment.getProperty("local.server.port"));
-			responseDTO.setCurrencyExchange(currentExchange);
+		
+		if(currentExchange ==null) {
+			throw new RuntimeException
+				("Unable to Find data for " + from + " to " + to);
 		}
+		
+		
+		currentExchange.setEnvironment(environment.getProperty("local.server.port"));
 
-		return responseDTO;
+		return currentExchange;
 	}
 
 }
