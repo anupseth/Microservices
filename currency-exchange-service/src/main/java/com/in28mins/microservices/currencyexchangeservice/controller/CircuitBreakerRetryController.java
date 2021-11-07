@@ -7,15 +7,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
-import io.github.resilience4j.bulkhead.annotation.Bulkhead;
-import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
-import io.github.resilience4j.ratelimiter.annotation.RateLimiter;
 import io.github.resilience4j.retry.annotation.Retry;
 
 @RestController
-public class CircuitBreakerController {
+public class CircuitBreakerRetryController {
 
-	private Logger logger = LoggerFactory.getLogger(CircuitBreakerController.class);
+	private Logger logger = LoggerFactory.getLogger(CircuitBreakerRetryController.class);
 
 	// Here there will be 3 attempts made to do retry if there are error duing the API call. and only if 
 	// Retry fails all 3 times then only it will return error response.
